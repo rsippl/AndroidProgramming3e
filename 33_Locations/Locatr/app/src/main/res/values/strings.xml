@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Locatr</string>
+
+    <string name="search">Find an image near you</string>
+</resources>

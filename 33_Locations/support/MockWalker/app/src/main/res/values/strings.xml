@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MockWalker</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="notification_title">MockWalker running</string>
+    <string name="notification_text">Tap to stop</string>
+</resources>
