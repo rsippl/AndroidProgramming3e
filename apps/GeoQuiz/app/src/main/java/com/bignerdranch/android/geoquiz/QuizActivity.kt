@@ -8,20 +8,55 @@ import kotlinx.android.synthetic.main.activity_quiz.*
 
 class QuizActivity : AppCompatActivity() {
 
+    private val questionBank : Array<Question> = arrayOf(
+            Question(R.string.question_australia, true),
+            Question(R.string.question_oceans, true),
+            Question(R.string.question_mideast, false),
+            Question(R.string.question_africa, false),
+            Question(R.string.question_americas, true),
+            Question(R.string.question_asia, true)
+
+    )
+    private var currentIndex : Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
+
         true_button.setOnClickListener {
-            val toast = Toast.makeText(this, R.string.correct_toast, Toast.LENGTH_SHORT)
-            toast.setGravity(Gravity.TOP, 0, 0)
-            toast.show()
+            checkAnswer(true)
         }
 
         false_button.setOnClickListener {
-            val toast = Toast.makeText(this, R.string.incorrect_toast, Toast.LENGTH_SHORT)
-            toast.setGravity(Gravity.TOP, 0, 0)
-            toast.show()
+            checkAnswer(false)
         }
+
+        next_button.setOnClickListener {
+            currentIndex = (currentIndex + 1) % questionBank.size
+            updateQuestion()
+        }
+
+        updateQuestion()
+    }
+
+    private fun updateQuestion() {
+        val question = questionBank[currentIndex].textResId
+        question_text_view.setText(question)
+    }
+
+    private fun checkAnswer(userPressedTrue: Boolean) {
+        val answerIsTrue = questionBank[currentIndex].isAnswerTrue
+
+        var messageResId = 0
+
+        if (userPressedTrue == answerIsTrue) {
+            messageResId = R.string.correct_toast
+        } else {
+            messageResId = R.string.incorrect_toast
+        }
+
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
+                .show()
     }
 }
