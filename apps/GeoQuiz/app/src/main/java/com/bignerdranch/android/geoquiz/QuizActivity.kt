@@ -10,6 +10,7 @@ class QuizActivity : AppCompatActivity() {
 
     private val TAG = "QuizActivity"
     private val KEY_INDEX = "index"
+    private val KEY_ANSWERS = "answers"
 
     private val questionBank: Array<Question> = arrayOf(
             Question(R.string.question_australia, true),
@@ -21,6 +22,7 @@ class QuizActivity : AppCompatActivity() {
 
     )
     private var currentIndex: Int = 0
+    private var answers = hashMapOf<Int, Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,7 @@ class QuizActivity : AppCompatActivity() {
 
         if (savedInstanceState != null) {
             currentIndex = savedInstanceState.getInt(KEY_INDEX, 0)
+            answers = savedInstanceState.getSerializable(KEY_ANSWERS) as HashMap<Int, Boolean>
         }
 
         true_button.setOnClickListener {
@@ -73,6 +76,7 @@ class QuizActivity : AppCompatActivity() {
         super.onSaveInstanceState(savedInstanceState)
         Log.i(TAG, "onSaveInstanceState")
         savedInstanceState.putInt(KEY_INDEX, currentIndex)
+        savedInstanceState.putSerializable(KEY_ANSWERS, answers)
     }
 
     override fun onStop() {
@@ -98,6 +102,9 @@ class QuizActivity : AppCompatActivity() {
     private fun updateQuestion() {
         val question = questionBank[currentIndex].textResId
         question_text_view.setText(question)
+        val buttonsEnabled = !answers.containsKey(currentIndex)
+        true_button.isEnabled = buttonsEnabled
+        false_button.isEnabled = buttonsEnabled
     }
 
     private fun checkAnswer(userPressedTrue: Boolean) {
@@ -107,11 +114,14 @@ class QuizActivity : AppCompatActivity() {
 
         if (userPressedTrue == answerIsTrue) {
             messageResId = R.string.correct_toast
+            answers[currentIndex] = true
         } else {
             messageResId = R.string.incorrect_toast
+            answers[currentIndex] = false
         }
 
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
                 .show()
+        updateQuestion()
     }
 }
