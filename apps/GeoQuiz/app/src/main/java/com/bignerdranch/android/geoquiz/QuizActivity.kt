@@ -40,11 +40,20 @@ class QuizActivity : AppCompatActivity() {
             showNextQuestion()
         }
 
+        previous_button.setOnClickListener {
+            showPreviousQuestion()
+        }
+
         updateQuestion()
     }
 
     private fun showNextQuestion() {
         currentIndex = (currentIndex + 1) % questionBank.size
+        updateQuestion()
+    }
+
+    private fun showPreviousQuestion() {
+        currentIndex = if (currentIndex == 0) questionBank.size - 1 else currentIndex - 1
         updateQuestion()
     }
 
