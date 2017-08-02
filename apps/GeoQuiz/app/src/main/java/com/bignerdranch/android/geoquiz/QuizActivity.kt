@@ -123,5 +123,20 @@ class QuizActivity : AppCompatActivity() {
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
                 .show()
         updateQuestion()
+        checkScore()
+    }
+
+    private fun checkScore() {
+        if (answers.size == questionBank.size) {
+            var correctAnswers: Int = 0
+            answers.forEach { _, isCorrect ->
+                if (isCorrect) {
+                    correctAnswers++
+                }
+            }
+            val score = Math.round(correctAnswers.toDouble() / answers.size * 100).toInt()
+            val scoreText = applicationContext.resources.getString(R.string.quiz_score, score)
+            Toast.makeText(this, scoreText, Toast.LENGTH_LONG).show()
+        }
     }
 }

@@ -16,4 +16,5 @@
     <string name="next_button">Next</string>
     <string name="correct_toast">Correct!</string>
     <string name="incorrect_toast">Incorrect!</string>
+    <string name="quiz_score">Quiz completed, score: %1$d%%</string>
 </resources>
