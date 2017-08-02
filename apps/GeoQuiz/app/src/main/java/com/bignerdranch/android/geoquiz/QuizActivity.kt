@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_quiz.*
 class QuizActivity : AppCompatActivity() {
 
     private val TAG = "QuizActivity"
+    private val KEY_INDEX = "index"
 
     private val questionBank: Array<Question> = arrayOf(
             Question(R.string.question_australia, true),
@@ -26,6 +27,9 @@ class QuizActivity : AppCompatActivity() {
         Log.d(TAG, "onCreate(Bundle) called")
         setContentView(R.layout.activity_quiz)
 
+        if (savedInstanceState != null) {
+            currentIndex = savedInstanceState.getInt(KEY_INDEX, 0)
+        }
 
         true_button.setOnClickListener {
             checkAnswer(true)
@@ -63,6 +67,12 @@ class QuizActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         Log.d(TAG, "onPause() called")
+    }
+
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
+        Log.i(TAG, "onSaveInstanceState")
+        savedInstanceState.putInt(KEY_INDEX, currentIndex)
     }
 
     override fun onStop() {
