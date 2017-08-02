@@ -2,13 +2,12 @@ package com.bignerdranch.android.geoquiz
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_quiz.*
 
 class QuizActivity : AppCompatActivity() {
 
-    private val questionBank : Array<Question> = arrayOf(
+    private val questionBank: Array<Question> = arrayOf(
             Question(R.string.question_australia, true),
             Question(R.string.question_oceans, true),
             Question(R.string.question_mideast, false),
@@ -17,7 +16,7 @@ class QuizActivity : AppCompatActivity() {
             Question(R.string.question_asia, true)
 
     )
-    private var currentIndex : Int = 0
+    private var currentIndex: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
