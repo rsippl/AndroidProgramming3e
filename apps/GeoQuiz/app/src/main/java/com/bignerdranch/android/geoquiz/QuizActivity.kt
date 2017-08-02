@@ -129,7 +129,7 @@ class QuizActivity : AppCompatActivity() {
     private fun checkScore() {
         if (answers.size == questionBank.size) {
             var correctAnswers: Int = 0
-            answers.forEach { _, isCorrect ->
+            for ((_, isCorrect) in answers) {
                 if (isCorrect) {
                     correctAnswers++
                 }
